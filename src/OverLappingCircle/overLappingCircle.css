@@ -1,0 +1,49 @@
+.circle{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    position:absolute;
+
+    background:rgba(0, 128, 255, .35);
+    border:2px solid #0080ff;
+
+    animation:circleAnimation .35s ease;
+
+    transition:
+      background .3s ease,
+      transform .3s ease,
+      border .3s ease;
+}
+
+.circle.overlap{
+    background:rgba(255, 0, 98, .35);
+    border:2px solid #ff0062;
+
+    animation:overlapAnimation .4s ease;
+}
+
+@keyframes circleAnimation{
+    from{
+        opacity:0;
+        transform:translate(-50%, -50%) scale(.4);
+    }
+
+    to{
+        opacity:1;
+        transform:translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes overlapAnimation{
+    0%{
+        transform:translate(-50%, -50%) scale(1);
+    }
+
+    50%{
+        transform:translate(-50%, -50%) scale(1.15);
+    }
+
+    100%{
+        transform:translate(-50%, -50%) scale(1);
+    }
+}

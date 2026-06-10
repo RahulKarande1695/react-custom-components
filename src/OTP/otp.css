@@ -1,0 +1,10 @@
+.otp{
+    display: flex;
+    margin: auto;
+}
+
+input{
+    width: 10vw;
+    height: 10vh;
+    font-size: 50px;
+}

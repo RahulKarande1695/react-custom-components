@@ -1,0 +1,153 @@
+/* CSS custom properties on :root — light mode defaults */
+:root {
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-border: #e5e7eb;
+  --color-text-primary: #111827;
+  --color-text-secondary: #6b7280;
+  --color-accent: #6366f1;
+  --shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* Dark mode: swap every token in one place.
+   data-theme="dark" is set on <html> by JS — no class juggling needed */
+[data-theme="dark"] {
+  --color-bg: #0f172a;
+  --color-surface: #1e293b;
+  --color-border: #334155;
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #94a3b8;
+  --color-accent: #818cf8;
+  --shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* ─── Demo shell ──────────────────────────────────────────────────────────── */
+.demo {
+  min-height: 100vh;
+  background: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  transition: background 0.3s ease;
+}
+
+.card {
+  width: 100%;
+  max-width: 380px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 28px 24px;
+  box-shadow: var(--shadow);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.card__title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card__line {
+  height: 10px;
+  border-radius: 99px;
+  background: var(--color-border);
+  transition: background 0.3s ease;
+}
+
+.card__line--short {
+  width: 60%;
+}
+
+.card__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-accent);
+  background: color-mix(in srgb, var(--color-accent) 12%, transparent);
+  border-radius: 99px;
+  transition: color 0.3s ease, background 0.3s ease;
+}
+
+.card__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  transition: background 0.3s ease;
+}
+
+/* ─── Toggle button ───────────────────────────────────────────────────────── */
+.toggle {
+  position: relative;
+  width: 52px;
+  height: 28px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* The pill track */
+.toggle__track {
+  position: absolute;
+  inset: 0;
+  border-radius: 99px;
+  background: var(--color-border);
+  border: 1.5px solid var(--color-border);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+/* Active track color */
+.toggle--active .toggle__track {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+/* The sliding thumb */
+.toggle__thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Slide thumb to the right when active */
+.toggle--active .toggle__thumb {
+  transform: translateX(24px);
+}
+
+.toggle:focus-visible .toggle__track {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.4);
+}

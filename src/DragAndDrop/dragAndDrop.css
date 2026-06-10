@@ -1,0 +1,28 @@
+/* dragAndDrop.css */
+
+.table-container {
+  height: 50vh;
+  width: 50vw;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 1px solid black;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-row {
+  border: 1px solid black;
+  cursor: grab;
+}
+
+.table-row:active {
+  cursor: grabbing;
+}
+
+.table-cell {
+  border: 1px solid black;
+  padding: 10px;
+}

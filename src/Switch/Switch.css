@@ -1,0 +1,40 @@
+.switch {
+  width: 30vw;
+  height: 15vh;
+  border: 1px solid black;
+  border-radius: 65px;
+  margin: 10vw;
+  box-sizing: border-box;
+  position: relative;
+  cursor: pointer;
+  background-color: lightgray;
+  transition: 0.3s;
+}
+
+.sinpt {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 15vw;
+  height: 15vh;
+
+  border-radius: 100px;
+  background-color: blue;
+
+  transition: 0.3s;
+
+  /* text center */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.switch.active .sinpt {
+  left: 15vw;
+}
