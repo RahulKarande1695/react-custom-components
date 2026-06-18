@@ -1,0 +1,19 @@
+/* ─── Cursor blink ────────────────────────────────────────────────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.typing__cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: currentColor;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blink 0.8s step-start infinite;
+}
+
+.typing__cursor--hidden {
+  opacity: 0;
+}

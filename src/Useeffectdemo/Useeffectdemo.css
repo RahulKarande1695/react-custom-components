@@ -1,0 +1,204 @@
+/* ─── Shell ───────────────────────────────────────────────────────────────── */
+.demo {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 32px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.demo__section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.demo__label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #9ca3af;
+  margin: 0;
+}
+
+.demo__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.demo__note {
+  font-size: 12px;
+  color: #6b7280;
+  line-height: 1.5;
+  background: #f9fafb;
+  border-left: 3px solid #e5e7eb;
+  padding: 8px 10px;
+  border-radius: 0 6px 6px 0;
+  margin: 0;
+}
+
+.demo__note code {
+  font-size: 11px;
+  background: #f3f4f6;
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-family: monospace;
+}
+
+/* ─── API fetch ───────────────────────────────────────────────────────────── */
+.user-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #f9fafb;
+  border-radius: 8px;
+}
+
+.user-card__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.user-card__name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.user-card__email {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.user-card--loading {
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+.id-btns {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.id-btn {
+  height: 30px;
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 6px;
+  background: #fff;
+  color: #374151;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+
+.id-btn:hover { background: #f3f4f6; }
+.id-btn--active { background: #111827; color: #fff; border-color: #111827; }
+
+/* ─── Event listener ──────────────────────────────────────────────────────── */
+.mouse-box {
+  height: 80px;
+  border: 1.5px dashed #d1d5db;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: #6b7280;
+  background: #f9fafb;
+  transition: background 0.15s;
+  cursor: crosshair;
+}
+
+.mouse-box--active {
+  background: #ede9fe;
+  border-color: #a78bfa;
+  color: #5b21b6;
+}
+
+/* ─── Timer / cleanup ─────────────────────────────────────────────────────── */
+.timer-display {
+  font-size: 32px;
+  font-weight: 700;
+  color: #111827;
+  font-variant-numeric: tabular-nums;
+}
+
+.timer-btns {
+  display: flex;
+  gap: 8px;
+}
+
+.timer-btn {
+  height: 34px;
+  padding: 0 14px;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+
+.timer-btn--primary { background: #111827; color: #fff; }
+.timer-btn--primary:hover { background: #1f2937; }
+.timer-btn--ghost { background: transparent; border: 1.5px solid #e5e7eb; color: #374151; }
+.timer-btn--ghost:hover { background: #f3f4f6; }
+
+/* ─── localStorage sync ───────────────────────────────────────────────────── */
+.sync-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sync-input {
+  flex: 1;
+  height: 38px;
+  padding: 0 10px;
+  font-size: 14px;
+  color: #111827;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.15s;
+}
+
+.sync-input:focus { border-color: #6366f1; background: #fff; }
+
+.sync-badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: #15803d;
+  background: #dcfce7;
+  padding: 3px 8px;
+  border-radius: 99px;
+  white-space: nowrap;
+}

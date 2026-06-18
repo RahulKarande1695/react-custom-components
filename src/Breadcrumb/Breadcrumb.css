@@ -1,0 +1,75 @@
+/* ─── Breadcrumb nav ──────────────────────────────────────────────────────── */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 14px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ─── Each item ───────────────────────────────────────────────────────────── */
+.breadcrumb__item {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+/* ─── Separator ───────────────────────────────────────────────────────────── */
+.breadcrumb__separator {
+  margin: 0 8px;
+  color: #d1d5db;
+  font-size: 12px;
+  user-select: none;
+}
+
+/* ─── Link ────────────────────────────────────────────────────────────────── */
+.breadcrumb__link {
+  color: #6b7280;
+  text-decoration: none;
+  border-radius: 4px;
+  padding: 2px 4px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.breadcrumb__link:hover {
+  color: #111827;
+  background: #f3f4f6;
+}
+
+.breadcrumb__link:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #6366f1;
+}
+
+/* ─── Current (last) item ─────────────────────────────────────────────────── */
+.breadcrumb__current {
+  color: #111827;
+  font-weight: 600;
+  padding: 2px 4px;
+}
+
+/* ─── Collapsed ellipsis button ───────────────────────────────────────────── */
+.breadcrumb__ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: #fff;
+  color: #6b7280;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  letter-spacing: 1px;
+}
+
+.breadcrumb__ellipsis:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+}

@@ -1,73 +1,114 @@
-# React + TypeScript + Vite
+# React UI Components
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A collection of 25+ production-quality UI components built from scratch using **React 18**, **TypeScript**, and **MUI** — covering compound components, render props, custom hooks, accessibility, and performance patterns.
 
-Currently, two official plugins are available:
+> Built as a hands-on learning playground for mastering React internals and interview-ready component design.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚀 Live Demo
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+🔗 [**View Live →**](https://react-ui-components.vercel.app) *(deploy link — update after Vercel deploy)*
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🧩 Components
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+| Component | Key Concepts |
+|---|---|
+| **TabList** | Compound components, ARIA roles, keyboard navigation, orientation variants |
+| **Accordion** | Compound components, Context, single/multi open modes |
+| **Pagination** | Compound components, render props, page size control |
+| **Modal** | Portal rendering, focus trap, backdrop click, keyboard dismiss |
+| **Popover** | Compound components, positioning, click-outside detection |
+| **Toast** | Context-driven notifications, auto-dismiss, queue management |
+| **Carousel** | Touch/swipe support, auto-play, dot navigation |
+| **DynamicForm** | Schema-driven form rendering, validation |
+| **DarkLightMode** | Theme switching, CSS variables, system preference detection |
+| **TodoApp** | CRUD, local state management, filter views |
+| **MemoryGame** | Game state, card flip logic, match detection |
+| **TicTacToe** | Game logic, win detection, turn management |
+| **StarRating** | Controlled/uncontrolled input, hover state |
+| **OTP Input** | Multi-input coordination, auto-focus, paste handling |
+| **FileExplorer** | Recursive tree rendering, expand/collapse |
+| **Switch** | Controlled toggle, accessible ARIA |
+| **VirtualScroll** | Windowing, performance optimization for large lists |
+| **InfiniteScroll** | Intersection Observer API, paginated data fetching |
+| **Stopwatch** | `useRef` vs `useState`, interval management |
+| **DigitalClock** | Real-time updates, `setInterval` cleanup |
+| **DragAndDrop** | HTML5 Drag API, reorder logic |
+| **TableRowDrag** | Drag-to-reorder table rows |
+| **TrafficLights** | Sequential state machine, auto-cycle |
+| **OverlappingCircle** | CSS geometry, SVG/clip-path |
+| **GridColor** | 2D array state, cell interaction |
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🛠 Tech Stack
+
+- **React 18** — Concurrent features, hooks
+- **TypeScript** — Strict mode, `verbatimModuleSyntax`
+- **Vite** — Fast dev server and optimized builds
+- **MUI (`@mui/material`)** — Component library base
+- **Emotion** — CSS-in-JS styling
+
+---
+
+## 📦 Run Locally
+
+```bash
+git clone https://github.com/RahulKarande1695/react-ui-components.git
+cd react-ui-components
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 📁 Project Structure
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+src/
+├── Accordion/
+├── Carousel/
+├── DarkLightMode/
+├── DragAndDrop/
+├── DynamicForm/
+├── FileExplore/
+├── GridColor/
+├── InfiniteScroll/
+├── MemoryGame/
+├── Modal/
+├── OTP/
+├── OverLappingCircle/
+├── Pagination/
+├── Popover/
+├── StarRating/
+├── Stopwatch/
+├── Switch/
+├── TabList/
+├── TicTacToe/
+├── Toast/
+├── Todo/
+├── TrafficLights/
+├── VirtualScroll/
+└── Clock/
+```
+
+---
+
+## 💡 Patterns Used
+
+- **Compound Components** — TabList, Accordion, Pagination, Popover, Modal
+- **Render Props** — Pagination.Pages
+- **Context API** — Toast, DarkLightMode, Accordion
+- **Custom Hooks** — Stopwatch, InfiniteScroll, DarkLightMode
+- **Recursive Rendering** — FileExplorer
+- **Performance** — VirtualScroll (windowing), InfiniteScroll (Intersection Observer)
+
+---
+
+## 👤 Author
+
+**Rahul Karande**
+[GitHub](https://github.com/RahulKarande1695)

@@ -1,0 +1,281 @@
+/* ─── Shell ───────────────────────────────────────────────────────────────── */
+.demo {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 32px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* ─── Section ─────────────────────────────────────────────────────────────── */
+.demo__section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.demo__label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #9ca3af;
+  margin: 0;
+}
+
+.demo__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.demo__note {
+  font-size: 12px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.5;
+  background: #f9fafb;
+  border-left: 3px solid #e5e7eb;
+  padding: 8px 10px;
+  border-radius: 0 6px 6px 0;
+}
+
+.demo__note code {
+  font-size: 11px;
+  background: #f3f4f6;
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-family: monospace;
+}
+
+/* ─── Action log ──────────────────────────────────────────────────────────── */
+.action-log {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+.action-log__entry {
+  font-size: 11px;
+  font-family: monospace;
+  color: #6b7280;
+  background: #f9fafb;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.action-log__entry--latest {
+  color: #5b21b6;
+  background: #ede9fe;
+}
+
+/* ─── Counter ─────────────────────────────────────────────────────────────── */
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.counter__value {
+  font-size: 36px;
+  font-weight: 700;
+  color: #111827;
+  min-width: 52px;
+  text-align: center;
+}
+
+.counter__btn {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 18px;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.counter__btn:hover { background: #f3f4f6; border-color: #d1d5db; }
+.counter__btn:focus-visible { outline: none; box-shadow: 0 0 0 2px #6366f1; }
+
+.counter__reset {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+}
+
+.counter__reset:hover { color: #111827; }
+
+/* ─── Form ────────────────────────────────────────────────────────────────── */
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-row__label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.form-row__input {
+  height: 38px;
+  padding: 0 10px;
+  font-size: 14px;
+  color: #111827;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.15s;
+}
+
+.form-row__input:focus {
+  border-color: #6366f1;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.10);
+}
+
+.form-row__input--error { border-color: #ef4444; }
+
+.form-row__error {
+  font-size: 12px;
+  color: #ef4444;
+  font-weight: 500;
+}
+
+.form-btn-row {
+  display: flex;
+  gap: 8px;
+}
+
+.form-btn {
+  height: 38px;
+  padding: 0 16px;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+
+.form-btn--primary { background: #111827; color: #fff; }
+.form-btn--primary:hover { background: #1f2937; }
+.form-btn--ghost { background: transparent; color: #6b7280; border: 1px solid #e5e7eb; }
+.form-btn--ghost:hover { background: #f9fafb; }
+.form-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.form-success {
+  font-size: 13px;
+  color: #15803d;
+  background: #dcfce7;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+/* ─── Cart ────────────────────────────────────────────────────────────────── */
+.product-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.product-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: #f9fafb;
+  border-radius: 8px;
+}
+
+.product-item__name {
+  font-size: 14px;
+  color: #111827;
+  font-weight: 500;
+}
+
+.product-item__price {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.product-item__btn {
+  height: 30px;
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  background: #111827;
+  color: #fff;
+  transition: background 0.15s;
+}
+
+.product-item__btn:hover { background: #1f2937; }
+
+.cart-summary {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cart-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: #374151;
+}
+
+.cart-row--total {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.cart-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #6b7280;
+  padding: 2px 0;
+}
+
+.cart-remove-btn {
+  font-size: 11px;
+  background: none;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+}
