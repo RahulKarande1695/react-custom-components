@@ -28,8 +28,8 @@ import "./UseLayoutEffectDemo.css";
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function TooltipDemo() {
-  const [visible, setVisible]       = useState(false);
-  const [position, setPosition]     = useState({ top: 0, left: 0 });
+  const [visible, setVisible] = useState(false);
+  const [position, setPosition] = useState({ top: 0, left: 0 });
   const triggerRef = useRef<HTMLButtonElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
 
@@ -43,7 +43,7 @@ function TooltipDemo() {
 
     setPosition({
       // Center tooltip above trigger
-      top:  triggerRect.top - tooltipRect.height - 8,
+      top: triggerRect.top - tooltipRect.height - 8,
       left: triggerRect.left + triggerRect.width / 2 - tooltipRect.width / 2,
     });
   }, [visible]);
@@ -76,9 +76,12 @@ function TooltipDemo() {
       </div>
 
       <p className="demo__note">
-        <code>useLayoutEffect</code> — tooltip DOM mध्ये आल्यावर लगेच measure करतो आणि
-        position set करतो, paint होण्यापूर्वी. <code>useEffect</code> असतं तर tooltip
-        एक frame wrong position वर दिसला असता → flicker.
+        <code>useLayoutEffect</code> measures the tooltip immediately after its
+        DOM element is mounted and updates its position before the browser
+        paints the screen. This ensures the tooltip is displayed in the correct
+        location from the very first frame. If <code>useEffect</code> were used
+        instead, the tooltip would briefly appear in the wrong position and then
+        jump to its correct position, resulting in a visible flicker.
       </p>
     </div>
   );
@@ -95,13 +98,17 @@ interface Message {
 }
 
 const INITIAL_MESSAGES: Message[] = [
-  { id: 1, text: "Hey! How are you?",         own: false },
-  { id: 2, text: "I'm good, thanks!",          own: true  },
-  { id: 3, text: "Working on React hooks 🚀",  own: true  },
+  { id: 1, text: "Hey! How are you?", own: false },
+  { id: 2, text: "I'm good, thanks!", own: true },
+  { id: 3, text: "Working on React hooks 🚀", own: true },
 ];
 
 const RESPONSES = [
-  "Cool!", "Nice 👍", "Tell me more.", "Interesting!", "Makes sense.",
+  "Cool!",
+  "Nice 👍",
+  "Tell me more.",
+  "Interesting!",
+  "Makes sense.",
 ];
 
 function ChatDemo() {
@@ -131,7 +138,10 @@ function ChatDemo() {
 
       <div className="chat-window" role="log" aria-live="polite">
         {messages.map((msg) => (
-          <div key={msg.id} className={`chat-msg${msg.own ? " chat-msg--own" : ""}`}>
+          <div
+            key={msg.id}
+            className={`chat-msg${msg.own ? " chat-msg--own" : ""}`}
+          >
             {msg.text}
           </div>
         ))}
@@ -143,8 +153,12 @@ function ChatDemo() {
       </button>
 
       <p className="demo__note">
-        <code>scrollIntoView</code> paint होण्यापूर्वी होतो.
-        <code>useEffect</code> असतं तर नवीन message एक frame वर visible होऊन मग scroll होतो → jump दिसतो.
+        <code>scrollIntoView()</code> is executed before the browser paints the
+        screen when used inside <code>useLayoutEffect</code>. This ensures the
+        scroll position is updated before the user sees the new frame. If{" "}
+        <code>useEffect</code> were used instead, the new message would briefly
+        appear in its original position for one frame, and then the page would
+        scroll, causing a noticeable visual jump.
       </p>
     </div>
   );
@@ -165,13 +179,16 @@ function MeasureDemo() {
 
     // Initial measurement
     const rect = el.getBoundingClientRect();
-    setDimensions({ width: Math.round(rect.width), height: Math.round(rect.height) });
+    setDimensions({
+      width: Math.round(rect.width),
+      height: Math.round(rect.height),
+    });
 
     // ResizeObserver — re-measure when element size changes (e.g. resize handle)
     const observer = new ResizeObserver((entries) => {
       const entry = entries[0];
       setDimensions({
-        width:  Math.round(entry.contentRect.width),
+        width: Math.round(entry.contentRect.width),
         height: Math.round(entry.contentRect.height),
       });
     });
@@ -183,7 +200,9 @@ function MeasureDemo() {
   return (
     <div className="demo__section">
       <p className="demo__label">Pattern 3</p>
-      <p className="demo__title">DOM measurement — ResizeObserver + useLayoutEffect</p>
+      <p className="demo__title">
+        DOM measurement — ResizeObserver + useLayoutEffect
+      </p>
 
       <div ref={boxRef} className="measure-box">
         Drag the right edge to resize this box →
@@ -194,9 +213,12 @@ function MeasureDemo() {
       </p>
 
       <p className="demo__note">
-        <code>useLayoutEffect</code> + <code>ResizeObserver</code> — element resize होताच
-        dimensions synchronously update होतात. Layout calculations साठी (tooltip, popover)
-        हा approach वापरतात.
+        <code>useLayoutEffect</code> combined with <code>ResizeObserver</code>{" "}
+        allows element dimensions to be updated synchronously whenever the
+        element is resized. This pattern is commonly used for layout-dependent
+        components such as tooltips, popovers, dropdowns, and floating UI
+        elements, where accurate measurements are required before the browser
+        repaints the screen.
       </p>
     </div>
   );

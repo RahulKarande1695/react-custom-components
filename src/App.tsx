@@ -49,6 +49,14 @@ import UseDeferredValueDemo from "./Usedeferredvaluedemo/Usedeferredvaluedemo";
 import UseIdDemo from "./Useiddemo/Useiddemo";
 import UseSyncExternalStoreDemo from "./Usesyncexternalstoredemo/Usesyncexternalstoredemo";
 import UseDebugValueDemo from "./UseDebugValueDemo/UseDebugValueDemo";
+import UseOptimisticDemo from "./UseOptimisticDemo/UseOptimisticDemo";
+import UseHookDemo from "./UseDemo/UseDemo";
+import UseFormStatusDemo from "./useFormStatus/useFormStatus";
+import UseActionStateDemo from "./useActionState/Useactionstatedemo";
+import UseDebounceDemo from "./Usedebouncedemo/Usedebouncedemo";
+import UseThrottleDemo from "./UseThrottleDemo/UseThrottleDemo";
+import UseWindowSizeDemo from "./UseWindowSizeDemo/UseWindowSizeDemo";
+import MultiSelectDemo from "./MultiSelect/MultiSelectDemo";
 
 type ComponentEntry = {
   label: string;
@@ -135,19 +143,54 @@ const componentList: ComponentEntry[] = [
     component: <UseDeferredValueDemo />,
   },
   {
-    label: "UseIdDemo",
+    label: "UseId",
     category: "Hooks",
     component: <UseIdDemo />,
   },
   {
-    label: "Usesyncexternalstoredemo",
+    label: "Usesyncexternalstore",
     category: "Hooks",
     component: <UseSyncExternalStoreDemo />,
   },
   {
-    label: "UseDebugValueDemo",
+    label: "UseDebugValue",
     category: "Hooks",
-    component: <UseDebugValueDemo />
+    component: <UseDebugValueDemo />,
+  },
+  {
+    label: "Use",
+    category: "Hooks",
+    component: <UseHookDemo />,
+  },
+  {
+    label: "UseOptimistic",
+    category: "Hooks",
+    component: <UseOptimisticDemo />,
+  },
+  {
+    label: "useFormStatus",
+    category: "Hooks",
+    component: <UseFormStatusDemo />,
+  },
+  {
+    label: "useActionState",
+    category: "Hooks",
+    component: <UseActionStateDemo />,
+  },
+  {
+    label: "UseDebounce",
+    category: "Hooks",
+    component: <UseDebounceDemo />,
+  },
+  {
+    label: "UseThrottle",
+    category: "Hooks",
+    component: <UseThrottleDemo />,
+  },
+  {
+    label: "UseWindowSize",
+    category: "Hooks",
+    component: <UseWindowSizeDemo />,
   },
   {
     label: "TabList",
@@ -227,9 +270,7 @@ const componentList: ComponentEntry[] = [
   {
     label: "MultiSelect",
     category: "Overlay",
-    component: (
-      <MultiSelect placeholder="Select frameworks..." maxVisible={3} />
-    ),
+    component: <MultiSelectDemo />,
   },
   {
     label: "Modal",

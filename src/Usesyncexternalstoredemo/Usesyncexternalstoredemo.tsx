@@ -55,15 +55,23 @@ function OnlineStatusDemo() {
       <p className="demo__label">Pattern 1</p>
       <p className="demo__title">Browser API — navigator.onLine</p>
 
-      <span className={`status-badge status-badge--${isOnline ? "online" : "offline"}`}>
-        <span className={`status-dot ${isOnline ? "status-dot--online" : ""}`} />
+      <span
+        className={`status-badge status-badge--${isOnline ? "online" : "offline"}`}
+      >
+        <span
+          className={`status-dot ${isOnline ? "status-dot--online" : ""}`}
+        />
         {isOnline ? "Online" : "Offline"}
       </span>
 
       <p className="demo__note">
-        <code>navigator.onLine</code> — browser चं external state, React च्या बाहेर.
-        WiFi बंद/चालू करून try कर — component automatically sync होतो,
-        कोणताही manual useEffect listener लिहायची गरज नाही.
+        <code>navigator.onLine</code> represents external browser state that
+        exists outside of React. Try disconnecting and reconnecting your
+        Wi-Fi—the component automatically stays in sync with the browser's
+        online status. When using <code>useSyncExternalStore</code>, you don't
+        need to manually write <code>useEffect</code> event listeners or manage
+        synchronization yourself; React handles updates whenever the external
+        store changes.
       </p>
     </div>
   );
@@ -86,7 +94,10 @@ function getWindowSizeSnapshot() {
 }
 
 function useWindowSize() {
-  const size = useSyncExternalStore(subscribeWindowResize, getWindowSizeSnapshot);
+  const size = useSyncExternalStore(
+    subscribeWindowResize,
+    getWindowSizeSnapshot,
+  );
   const [width, height] = size.split("x").map(Number);
   return { width, height };
 }
@@ -109,16 +120,27 @@ function WindowSizeDemo() {
           <p className="size-box__label">Height</p>
         </div>
       </div>
-
       <p className="demo__note">
-        <code>getSnapshot</code> string return करतो (<code>"1024x768"</code>) — primitive,
-        त्यामुळे same value असेल तर automatically referentially equal राहतो.
-        Object return केलं असतं तर प्रत्येक call ला नवीन reference → infinite re-render.
+        <code>getSnapshot</code> returns a string (for example,{" "}
+        <code>"1024x768"</code>), which is a primitive value. When the value
+        does not change, React considers it equal automatically, so no
+        unnecessary re-render occurs. If <code>getSnapshot</code> returned a new
+        object on every call, each object would have a different reference,
+        causing React to treat it as a changed snapshot and potentially
+        triggering an infinite re-render loop.
       </p>
 
       <p className="demo__warning">
-        ⚠️ <strong>getSnapshot rule:</strong> value न बदलल्यास same reference return करणं गरजेचं.
-        Object/array असेल तर बाहेर cache कर, नाहीतर "getSnapshot should be cached" warning येतो.
+        ⚠️{" "}
+        <strong>
+          <code>getSnapshot</code> rule:
+        </strong>{" "}
+        If the underlying data has not changed, <code>getSnapshot</code> must
+        return the same reference. When returning an object or array, cache the
+        value outside of <code>getSnapshot</code> and reuse it until the data
+        changes. Otherwise, React may display the warning{" "}
+        <code>"The result of getSnapshot should be cached"</code>
+        and repeatedly re-render the component.
       </p>
     </div>
   );
@@ -151,7 +173,10 @@ function createStore<T>(initialState: T) {
 const counterStore = createStore({ count: 0 });
 
 function useCounterStore() {
-  const state = useSyncExternalStore(counterStore.subscribe, counterStore.getState);
+  const state = useSyncExternalStore(
+    counterStore.subscribe,
+    counterStore.getState,
+  );
   return state;
 }
 
@@ -170,7 +195,9 @@ function CounterDisplayB() {
   const { count } = useCounterStore();
   return (
     <div className="instance-row">
-      <span className="instance-label">Component B (different component, same store)</span>
+      <span className="instance-label">
+        Component B (different component, same store)
+      </span>
       <span className="counter-value">{count}</span>
     </div>
   );
@@ -180,7 +207,9 @@ function CustomStoreDemo() {
   return (
     <div className="demo__section">
       <p className="demo__label">Pattern 3</p>
-      <p className="demo__title">Custom external store — mini Redux from scratch</p>
+      <p className="demo__title">
+        Custom external store — mini Redux from scratch
+      </p>
 
       <div className="btn-row">
         <button
@@ -201,9 +230,14 @@ function CustomStoreDemo() {
       <CounterDisplayB />
 
       <p className="demo__note">
-        <code>counterStore</code> — plain JS object, React component नाही, कुठेही import करता येतो.
-        दोन्ही components (<code>A</code> आणि <code>B</code>) त्याच store ला subscribe करतात —
-        दोन्ही simultaneously update होतात. हाच pattern Redux/Zustand internally वापरतात.
+        <code>counterStore</code> is a plain JavaScript object, not a React
+        component, so it can be imported and used anywhere in the application.
+        Both components,
+        <code>A</code> and <code>B</code>, subscribe to the same store, allowing
+        them to stay synchronized and update simultaneously whenever the store's
+        state changes. This subscription-based architecture is the same
+        fundamental pattern used internally by state management libraries such
+        as Redux and Zustand.
       </p>
     </div>
   );

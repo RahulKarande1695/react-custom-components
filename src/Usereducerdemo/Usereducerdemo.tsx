@@ -27,7 +27,7 @@ import "./UseReducerDemo.css";
 
 interface CounterState {
   count: number;
-  log: string[];   // history of actions
+  log: string[]; // history of actions
 }
 
 type CounterAction =
@@ -39,18 +39,30 @@ type CounterAction =
 const counterInitial: CounterState = { count: 0, log: [] };
 
 // Pure function — same input always gives same output, no side effects
-function counterReducer(state: CounterState, action: CounterAction): CounterState {
+function counterReducer(
+  state: CounterState,
+  action: CounterAction,
+): CounterState {
   switch (action.type) {
     case "INCREMENT":
-      return { count: state.count + 1, log: [`+1 → ${state.count + 1}`, ...state.log] };
+      return {
+        count: state.count + 1,
+        log: [`+1 → ${state.count + 1}`, ...state.log],
+      };
     case "DECREMENT":
-      return { count: state.count - 1, log: [`-1 → ${state.count - 1}`, ...state.log] };
+      return {
+        count: state.count - 1,
+        log: [`-1 → ${state.count - 1}`, ...state.log],
+      };
     case "RESET":
       return { count: 0, log: ["Reset → 0", ...state.log] };
     case "INCREMENT_BY":
       return {
         count: state.count + action.payload,
-        log: [`+${action.payload} → ${state.count + action.payload}`, ...state.log],
+        log: [
+          `+${action.payload} → ${state.count + action.payload}`,
+          ...state.log,
+        ],
       };
     default:
       // TypeScript exhaustive check — if new action added without case, compile error
@@ -67,28 +79,54 @@ function CounterDemo() {
       <p className="demo__title">Counter with action log — multiple fields</p>
 
       <div className="counter">
-        <button className="counter__btn" onClick={() => dispatch({ type: "DECREMENT" })}>−</button>
+        <button
+          className="counter__btn"
+          onClick={() => dispatch({ type: "DECREMENT" })}
+        >
+          −
+        </button>
         <span className="counter__value">{state.count}</span>
-        <button className="counter__btn" onClick={() => dispatch({ type: "INCREMENT" })}>+</button>
-        <button className="counter__btn" style={{ width: "auto", padding: "0 10px", fontSize: 13 }}
-          onClick={() => dispatch({ type: "INCREMENT_BY", payload: 5 })}>
+        <button
+          className="counter__btn"
+          onClick={() => dispatch({ type: "INCREMENT" })}
+        >
+          +
+        </button>
+        <button
+          className="counter__btn"
+          style={{ width: "auto", padding: "0 10px", fontSize: 13 }}
+          onClick={() => dispatch({ type: "INCREMENT_BY", payload: 5 })}
+        >
           +5
         </button>
-        <button className="counter__reset" onClick={() => dispatch({ type: "RESET" })}>Reset</button>
+        <button
+          className="counter__reset"
+          onClick={() => dispatch({ type: "RESET" })}
+        >
+          Reset
+        </button>
       </div>
 
       {/* Action log — shows every dispatch */}
       <div className="action-log">
         {state.log.slice(0, 5).map((entry, i) => (
-          <div key={i} className={`action-log__entry${i === 0 ? " action-log__entry--latest" : ""}`}>
+          <div
+            key={i}
+            className={`action-log__entry${i === 0 ? " action-log__entry--latest" : ""}`}
+          >
             {entry}
           </div>
         ))}
       </div>
 
       <p className="demo__note">
-        <code>count</code> आणि <code>log</code> — दोन्ही एकाच dispatch मध्ये update होतात.
-        useState असतं तर 2 separate setState calls लागले असते — race condition शक्य होती.
+        <code>count</code> and <code>log</code> are updated together with a
+        single <code>dispatch</code>, ensuring that both values remain
+        synchronized in one atomic state transition. If the same logic were
+        implemented with <code>useState</code>, it would typically require two
+        separate <code>setState</code> calls, making the update logic more
+        difficult to manage and increasing the risk of inconsistent state during
+        complex updates.
       </p>
     </div>
   );
@@ -127,7 +165,10 @@ function formReducer(state: FormState, action: FormAction): FormState {
     case "SET_FIELD":
       return {
         ...state,
-        fields: { ...state.fields, [action.payload.name]: action.payload.value },
+        fields: {
+          ...state.fields,
+          [action.payload.name]: action.payload.value,
+        },
         // Clear error for this field when user types
         errors: { ...state.errors, [action.payload.name]: undefined },
       };
@@ -159,7 +200,10 @@ function FormDemo() {
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     dispatch({
       type: "SET_FIELD",
-      payload: { name: e.target.name as keyof FormFields, value: e.target.value },
+      payload: {
+        name: e.target.name as keyof FormFields,
+        value: e.target.value,
+      },
     });
   }
 
@@ -182,7 +226,10 @@ function FormDemo() {
         <p className="demo__title">Form with validation</p>
         <p className="form-success">✓ Submitted as {state.fields.name}!</p>
         <div className="form-btn-row">
-          <button className="form-btn form-btn--ghost" onClick={() => dispatch({ type: "RESET" })}>
+          <button
+            className="form-btn form-btn--ghost"
+            onClick={() => dispatch({ type: "RESET" })}
+          >
             Reset
           </button>
         </div>
@@ -193,12 +240,16 @@ function FormDemo() {
   return (
     <div className="demo__section">
       <p className="demo__label">Pattern 2</p>
-      <p className="demo__title">Form with validation — fields + errors + status</p>
+      <p className="demo__title">
+        Form with validation — fields + errors + status
+      </p>
 
       <form onSubmit={handleSubmit} noValidate>
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           <div className="form-row">
-            <label className="form-row__label" htmlFor="r-name">Name</label>
+            <label className="form-row__label" htmlFor="r-name">
+              Name
+            </label>
             <input
               id="r-name"
               name="name"
@@ -208,11 +259,15 @@ function FormDemo() {
               placeholder="Rahul"
               aria-invalid={!!state.errors.name}
             />
-            {state.errors.name && <p className="form-row__error">{state.errors.name}</p>}
+            {state.errors.name && (
+              <p className="form-row__error">{state.errors.name}</p>
+            )}
           </div>
 
           <div className="form-row">
-            <label className="form-row__label" htmlFor="r-email">Email</label>
+            <label className="form-row__label" htmlFor="r-email">
+              Email
+            </label>
             <input
               id="r-email"
               name="email"
@@ -223,7 +278,9 @@ function FormDemo() {
               placeholder="rahul@example.com"
               aria-invalid={!!state.errors.email}
             />
-            {state.errors.email && <p className="form-row__error">{state.errors.email}</p>}
+            {state.errors.email && (
+              <p className="form-row__error">{state.errors.email}</p>
+            )}
           </div>
 
           <div className="form-btn-row">
@@ -246,8 +303,13 @@ function FormDemo() {
       </form>
 
       <p className="demo__note">
-        fields, errors, status — तीन related pieces एकाच <code>state</code> object मध्ये.
-        <code>SET_FIELD</code> dispatch करताना त्या field चा error पण clear होतो — atomic update.
+        <code>fields</code>, <code>errors</code>, and <code>status</code> are
+        stored together in a single <code>state</code> object because they
+        represent related pieces of form state. When the <code>SET_FIELD</code>{" "}
+        action is dispatched, the reducer updates the field value and clears the
+        corresponding validation error in the same state update. This atomic
+        update keeps the state consistent and avoids multiple separate state
+        updates.
       </p>
     </div>
   );
@@ -273,14 +335,14 @@ interface CartState {
 
 type CartAction =
   | { type: "ADD_ITEM"; payload: Product }
-  | { type: "REMOVE_ITEM"; payload: string }   // id
+  | { type: "REMOVE_ITEM"; payload: string } // id
   | { type: "INCREMENT_QTY"; payload: string }
   | { type: "CLEAR" };
 
 const PRODUCTS: Product[] = [
-  { id: "p1", name: "React T-Shirt",    price: 499 },
-  { id: "p2", name: "TypeScript Mug",   price: 299 },
-  { id: "p3", name: "VS Code Sticker",  price: 99  },
+  { id: "p1", name: "React T-Shirt", price: 499 },
+  { id: "p2", name: "TypeScript Mug", price: 299 },
+  { id: "p3", name: "VS Code Sticker", price: 99 },
 ];
 
 function cartReducer(state: CartState, action: CartAction): CartState {
@@ -291,7 +353,7 @@ function cartReducer(state: CartState, action: CartAction): CartState {
         // Already in cart — increment qty
         return {
           items: state.items.map((i) =>
-            i.id === action.payload.id ? { ...i, qty: i.qty + 1 } : i
+            i.id === action.payload.id ? { ...i, qty: i.qty + 1 } : i,
           ),
         };
       }
@@ -302,7 +364,7 @@ function cartReducer(state: CartState, action: CartAction): CartState {
     case "INCREMENT_QTY":
       return {
         items: state.items.map((i) =>
-          i.id === action.payload ? { ...i, qty: i.qty + 1 } : i
+          i.id === action.payload ? { ...i, qty: i.qty + 1 } : i,
         ),
       };
     case "CLEAR":
@@ -341,11 +403,15 @@ function CartDemo() {
         <div className="cart-summary">
           {state.items.map((item) => (
             <div key={item.id} className="cart-item-row">
-              <span>{item.name} × {item.qty}</span>
+              <span>
+                {item.name} × {item.qty}
+              </span>
               <span>₹{item.price * item.qty}</span>
               <button
                 className="cart-remove-btn"
-                onClick={() => dispatch({ type: "REMOVE_ITEM", payload: item.id })}
+                onClick={() =>
+                  dispatch({ type: "REMOVE_ITEM", payload: item.id })
+                }
               >
                 Remove
               </button>
@@ -366,8 +432,12 @@ function CartDemo() {
       )}
 
       <p className="demo__note">
-        <code>ADD_ITEM</code> — already exists तर qty increment, otherwise new item push.
-        हे logic useState मध्ये component मध्ये लिहायला लागलं असतं — reducer मध्ये isolated आणि testable आहे.
+        When handling the <code>ADD_ITEM</code> action, the reducer first checks
+        whether the item already exists in the cart. If it does, the item's{" "}
+        <code>qty</code> is incremented; otherwise, a new item is added to the
+        cart. Implementing this logic directly with <code>useState</code> would
+        place the update logic inside the component, whereas a reducer keeps it
+        centralized, predictable, and easy to test independently.
       </p>
     </div>
   );

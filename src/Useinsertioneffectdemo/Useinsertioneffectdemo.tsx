@@ -22,7 +22,13 @@
  * Pattern 2 — Execution order visual   : shows insertion → layout → effect order
  */
 
-import { useState, useRef, useInsertionEffect, useLayoutEffect, useEffect } from "react";
+import {
+  useState,
+  useRef,
+  useInsertionEffect,
+  useLayoutEffect,
+  useEffect,
+} from "react";
 import "./UseInsertionEffectDemo.css";
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -33,7 +39,7 @@ import "./UseInsertionEffectDemo.css";
 function useCSS(css: string): string {
   // Stable class name based on css string hash
   const className = `dyn-${Math.abs(
-    css.split("").reduce((h, c) => (Math.imul(31, h) + c.charCodeAt(0)) | 0, 0)
+    css.split("").reduce((h, c) => (Math.imul(31, h) + c.charCodeAt(0)) | 0, 0),
   ).toString(36)}`;
 
   const styleRef = useRef<HTMLStyleElement | null>(null);
@@ -68,10 +74,34 @@ interface Theme {
 }
 
 const THEMES: Theme[] = [
-  { name: "Ocean",    emoji: "🌊", bg: "#eff6ff", color: "#1d4ed8", borderColor: "#bfdbfe" },
-  { name: "Forest",  emoji: "🌿", bg: "#f0fdf4", color: "#15803d", borderColor: "#bbf7d0" },
-  { name: "Sunset",  emoji: "🌅", bg: "#fff7ed", color: "#c2410c", borderColor: "#fed7aa" },
-  { name: "Violet",  emoji: "💜", bg: "#fdf4ff", color: "#7e22ce", borderColor: "#e9d5ff" },
+  {
+    name: "Ocean",
+    emoji: "🌊",
+    bg: "#eff6ff",
+    color: "#1d4ed8",
+    borderColor: "#bfdbfe",
+  },
+  {
+    name: "Forest",
+    emoji: "🌿",
+    bg: "#f0fdf4",
+    color: "#15803d",
+    borderColor: "#bbf7d0",
+  },
+  {
+    name: "Sunset",
+    emoji: "🌅",
+    bg: "#fff7ed",
+    color: "#c2410c",
+    borderColor: "#fed7aa",
+  },
+  {
+    name: "Violet",
+    emoji: "💜",
+    bg: "#fdf4ff",
+    color: "#7e22ce",
+    borderColor: "#e9d5ff",
+  },
 ];
 
 function StyleInjectionDemo() {
@@ -80,13 +110,15 @@ function StyleInjectionDemo() {
 
   // useCSS generates class + injects <style> via useInsertionEffect
   const cls = useCSS(
-    `background: ${theme.bg}; color: ${theme.color}; border: 1.5px solid ${theme.borderColor};`
+    `background: ${theme.bg}; color: ${theme.color}; border: 1.5px solid ${theme.borderColor};`,
   );
 
   return (
     <div className="demo__section">
       <p className="demo__label">Pattern 1</p>
-      <p className="demo__title">Dynamic style injection — CSS-in-JS simulation</p>
+      <p className="demo__title">
+        Dynamic style injection — CSS-in-JS simulation
+      </p>
 
       <div className="theme-btns">
         {THEMES.map((t, i) => (
@@ -102,16 +134,23 @@ function StyleInjectionDemo() {
 
       {/* className comes from injected <style> tag — no inline styles */}
       <div className={`theme-preview ${cls}`}>
-        <p className="theme-preview__title">{theme.emoji} {theme.name} Theme</p>
+        <p className="theme-preview__title">
+          {theme.emoji} {theme.name} Theme
+        </p>
         <p className="theme-preview__body">
-          Style injected via <code>&lt;style&gt;</code> tag using useInsertionEffect.
+          Style injected via <code>&lt;style&gt;</code> tag using
+          useInsertionEffect.
         </p>
       </div>
 
       <p className="demo__note">
-        <code>useInsertionEffect</code> — <code>&lt;style&gt;</code> tag DOM मध्ये insert होतो
-        render च्या आधी. Emotion/styled-components internally हेच करतात —
-        className generate करतात + styles head मध्ये inject करतात.
+        <code>useInsertionEffect</code> is used to insert{" "}
+        <code>&lt;style&gt;</code>
+        elements into the DOM before layout effects run. CSS-in-JS libraries
+        such as <code>Emotion</code> and <code>styled-components</code> use this
+        mechanism internally to generate unique class names and inject the
+        corresponding CSS into the document's <code>&lt;head&gt;</code> before
+        the browser performs layout and painting.
       </p>
     </div>
   );
@@ -143,47 +182,78 @@ function ExecutionOrderDemo() {
   return (
     <div className="demo__section">
       <p className="demo__label">Pattern 2</p>
-      <p className="demo__title">Execution order — insertion → layout → effect</p>
+      <p className="demo__title">
+        Execution order — insertion → layout → effect
+      </p>
 
       <button
         style={{
-          height: 34, padding: "0 14px", fontSize: 13, fontWeight: 600,
-          background: "#111827", color: "#fff", border: "none",
-          borderRadius: 8, cursor: "pointer", fontFamily: "inherit",
+          height: 34,
+          padding: "0 14px",
+          fontSize: 13,
+          fontWeight: 600,
+          background: "#111827",
+          color: "#fff",
+          border: "none",
+          borderRadius: 8,
+          cursor: "pointer",
+          fontFamily: "inherit",
           alignSelf: "flex-start",
         }}
-        onClick={() => { setLog([]); setTrigger((t) => t + 1); }}
+        onClick={() => {
+          setLog([]);
+          setTrigger((t) => t + 1);
+        }}
       >
         Trigger all 3 effects
       </button>
 
       <div className="order-list">
         {[
-          { label: "useInsertionEffect", cls: "insertion", timing: "Before DOM flush" },
-          { label: "useLayoutEffect",    cls: "layout",    timing: "Before paint" },
-          { label: "useEffect",          cls: "effect",    timing: "After paint" },
+          {
+            label: "useInsertionEffect",
+            cls: "insertion",
+            timing: "Before DOM flush",
+          },
+          { label: "useLayoutEffect", cls: "layout", timing: "Before paint" },
+          { label: "useEffect", cls: "effect", timing: "After paint" },
         ].map((item, i) => (
-          <div key={item.label} className={`order-item order-item--${item.cls}`}>
+          <div
+            key={item.label}
+            className={`order-item order-item--${item.cls}`}
+          >
             <span className="order-item__num">{i + 1}</span>
             <div>
               <code style={{ fontSize: 12 }}>{item.label}</code>
-              <p style={{ margin: "2px 0 0", fontSize: 11, opacity: 0.7 }}>{item.timing}</p>
+              <p style={{ margin: "2px 0 0", fontSize: 11, opacity: 0.7 }}>
+                {item.timing}
+              </p>
             </div>
             {log[i] && (
-              <span style={{ marginLeft: "auto", fontSize: 11, opacity: 0.7 }}>✓ fired</span>
+              <span style={{ marginLeft: "auto", fontSize: 11, opacity: 0.7 }}>
+                ✓ fired
+              </span>
             )}
           </div>
         ))}
       </div>
 
       <p className="demo__note">
-        तीन hooks एकाच render मध्ये: <code>useInsertionEffect</code> → <code>useLayoutEffect</code> → <code>useEffect</code>.
-        हा order guaranteed आहे — React spec मध्ये defined आहे.
+        When all three hooks are used during the same render cycle, they always
+        run in this order: <code>useInsertionEffect</code> →{" "}
+        <code>useLayoutEffect</code> → <code>useEffect</code>. This execution
+        order is guaranteed by React and is part of its official behavior.
       </p>
 
       <p className="demo__warning">
-        ⚠️ <strong>App code मध्ये वापरू नकोस</strong> — useInsertionEffect फक्त CSS-in-JS
-        library authors साठी आहे. Refs read/write करता येत नाहीत, setState नाही.
+        ⚠️{" "}
+        <strong>
+          Do not use <code>useInsertionEffect</code> in application code.
+        </strong>{" "}
+        It is intended primarily for CSS-in-JS library authors to inject styles
+        before layout effects run. Inside <code>useInsertionEffect</code>, you
+        should not read or write refs, and you should not call{" "}
+        <code>setState</code>.
       </p>
     </div>
   );

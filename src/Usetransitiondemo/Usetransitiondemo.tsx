@@ -27,11 +27,16 @@ import "./UseTransitionDemo.css";
 // ═══════════════════════════════════════════════════════════════════════════════
 
 // 8000 items — filtering this on every keystroke without transition = laggy input
-const BIG_LIST = Array.from({ length: 8000 }, (_, i) => `Item ${i + 1} — Product SKU-${1000 + i}`);
+const BIG_LIST = Array.from(
+  { length: 8000 },
+  (_, i) => `Item ${i + 1} — Product SKU-${1000 + i}`,
+);
 
 // Simulates expensive render work per item (artificial slowdown for demo)
 function expensiveFilter(query: string): string[] {
-  const result = BIG_LIST.filter((item) => item.toLowerCase().includes(query.toLowerCase()));
+  const result = BIG_LIST.filter((item) =>
+    item.toLowerCase().includes(query.toLowerCase()),
+  );
   // Simulate heavy computation per result (forces visible lag without transition)
   let dummy = 0;
   for (let i = 0; i < result.length * 200; i++) dummy += i;
@@ -39,8 +44,8 @@ function expensiveFilter(query: string): string[] {
 }
 
 function HeavyFilterDemo() {
-  const [query, setQuery]       = useState("");
-  const [results, setResults]   = useState<string[]>(() => expensiveFilter(""));
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState<string[]>(() => expensiveFilter(""));
   const [isPending, startTransition] = useTransition();
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -57,7 +62,9 @@ function HeavyFilterDemo() {
   return (
     <div className="demo__section">
       <p className="demo__label">Pattern 1</p>
-      <p className="demo__title">Heavy list filter — 8000 items, input stays smooth</p>
+      <p className="demo__title">
+        Heavy list filter — 8000 items, input stays smooth
+      </p>
 
       <div style={{ position: "relative" }}>
         <input
@@ -76,17 +83,29 @@ function HeavyFilterDemo() {
       <div className={`tab-panel${isPending ? " tab-panel--pending" : ""}`}>
         <div className="item-list">
           {results.length === 0 ? (
-            <p style={{ fontSize: 13, color: "#9ca3af", margin: 0 }}>No matches</p>
+            <p style={{ fontSize: 13, color: "#9ca3af", margin: 0 }}>
+              No matches
+            </p>
           ) : (
-            results.map((item) => <div key={item} className="item-row">{item}</div>)
+            results.map((item) => (
+              <div key={item} className="item-row">
+                {item}
+              </div>
+            ))
           )}
         </div>
       </div>
 
       <p className="demo__note">
-        <code>setQuery(value)</code> — urgent, input lगेच update होतो.
-        <code>startTransition(() =&gt; setResults(...))</code> — non-urgent, React ला priority कमी देतो.
-        टाईप करताना input lag होत नाही, फक्त list थोडी delay ने update होते (<code>isPending</code> spinner सोबत).
+        <code>setQuery(value)</code> is an urgent update, so the input field
+        responds immediately to every keystroke. The expensive update,
+        <code>startTransition(() =&gt; setResults(...))</code>, is marked as
+        non-urgent, allowing React to schedule it with lower priority. As a
+        result, typing remains smooth and responsive, while the results list
+        updates slightly later. During this background update,{" "}
+        <code>isPending</code> becomes <code>true</code>, making it easy to
+        display a loading spinner or other visual feedback until the transition
+        completes.
       </p>
     </div>
   );
@@ -105,13 +124,16 @@ function computeTabData(tab: TabKey): { title: string; rows: string[] } {
   let dummy = 0;
   for (let i = 0; i < count * 300; i++) dummy += i;
 
-  const rows = Array.from({ length: 8 }, (_, i) => `${tab} row ${i + 1} — value ${Math.round(Math.random() * 1000)}`);
+  const rows = Array.from(
+    { length: 8 },
+    (_, i) => `${tab} row ${i + 1} — value ${Math.round(Math.random() * 1000)}`,
+  );
   return { title: tab.charAt(0).toUpperCase() + tab.slice(1), rows };
 }
 
 function TabSwitchDemo() {
   const [activeTab, setActiveTab] = useState<TabKey>("overview");
-  const [data, setData]           = useState(() => computeTabData("overview"));
+  const [data, setData] = useState(() => computeTabData("overview"));
   const [isPending, startTransition] = useTransition();
   const clickedTabRef = useRef<TabKey>("overview");
 
@@ -130,7 +152,9 @@ function TabSwitchDemo() {
   return (
     <div className="demo__section">
       <p className="demo__label">Pattern 2</p>
-      <p className="demo__title">Tab switch — responsive click, deferred heavy content</p>
+      <p className="demo__title">
+        Tab switch — responsive click, deferred heavy content
+      </p>
 
       <div className="tab-bar">
         {tabs.map((tab) => (
@@ -141,25 +165,47 @@ function TabSwitchDemo() {
           >
             {tab.charAt(0).toUpperCase() + tab.slice(1)}
             {isPending && clickedTabRef.current === tab && (
-              <span className="spinner" style={{ marginLeft: 6, verticalAlign: "middle" }} />
+              <span
+                className="spinner"
+                style={{ marginLeft: 6, verticalAlign: "middle" }}
+              />
             )}
           </button>
         ))}
       </div>
 
       <div className={`tab-panel${isPending ? " tab-panel--pending" : ""}`}>
-        <p style={{ fontWeight: 600, fontSize: 14, margin: "0 0 8px", color: "#111827" }}>
-          {data.title} {isPending && <span className="badge badge--pending">Loading...</span>}
+        <p
+          style={{
+            fontWeight: 600,
+            fontSize: 14,
+            margin: "0 0 8px",
+            color: "#111827",
+          }}
+        >
+          {data.title}{" "}
+          {isPending && (
+            <span className="badge badge--pending">Loading...</span>
+          )}
         </p>
         <div className="item-list">
-          {data.rows.map((row, i) => <div key={i} className="item-row">{row}</div>)}
+          {data.rows.map((row, i) => (
+            <div key={i} className="item-row">
+              {row}
+            </div>
+          ))}
         </div>
       </div>
 
       <p className="demo__note">
-        Tab button click लगेच highlight होतो (visual feedback instant).
-        Heavy content (<code>computeTabData</code>) background मध्ये compute होतो —
-        <code>isPending</code> true असताना old content थोडा faded दिसतो, नवीन तयार झाल्यावर swap होतो.
+        When a tab button is clicked, it is highlighted immediately, providing
+        instant visual feedback to the user. The expensive content generation (
+        <code>computeTabData</code>) is then performed in the background as a
+        non-urgent update. While <code>isPending</code> is <code>true</code>,
+        the previous content remains visible with a faded appearance. Once the
+        background computation finishes, React seamlessly replaces it with the
+        newly computed content, keeping the interface responsive throughout the
+        transition.
       </p>
     </div>
   );

@@ -31,10 +31,15 @@ import "./UseDeferredValueDemo.css";
 // Pattern 1 — Search with deferred value
 // ═══════════════════════════════════════════════════════════════════════════════
 
-const BIG_LIST = Array.from({ length: 6000 }, (_, i) => `Result ${i + 1} — keyword-${1000 + i}`);
+const BIG_LIST = Array.from(
+  { length: 6000 },
+  (_, i) => `Result ${i + 1} — keyword-${1000 + i}`,
+);
 
 function expensiveSearch(query: string): string[] {
-  const result = BIG_LIST.filter((item) => item.toLowerCase().includes(query.toLowerCase()));
+  const result = BIG_LIST.filter((item) =>
+    item.toLowerCase().includes(query.toLowerCase()),
+  );
   // Simulate heavy render cost
   let dummy = 0;
   for (let i = 0; i < result.length * 150; i++) dummy += i;
@@ -52,7 +57,10 @@ function SearchDemo() {
   const isStale = query !== deferredQuery;
 
   // useMemo prevents recalculating on every render — only when deferredQuery changes
-  const results = useMemo(() => expensiveSearch(deferredQuery), [deferredQuery]);
+  const results = useMemo(
+    () => expensiveSearch(deferredQuery),
+    [deferredQuery],
+  );
 
   return (
     <div className="demo__section">
@@ -62,16 +70,24 @@ function SearchDemo() {
       <input
         className="field-input"
         value={query}
-        onChange={(e: ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
+        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          setQuery(e.target.value)
+        }
         placeholder="Type to search..."
       />
 
       <div className={`tab-panel${isStale ? " tab-panel--stale" : ""}`}>
         <div className="item-list">
           {results.length === 0 ? (
-            <p style={{ fontSize: 13, color: "#9ca3af", margin: 0 }}>No matches</p>
+            <p style={{ fontSize: 13, color: "#9ca3af", margin: 0 }}>
+              No matches
+            </p>
           ) : (
-            results.map((item) => <div key={item} className="item-row">{item}</div>)
+            results.map((item) => (
+              <div key={item} className="item-row">
+                {item}
+              </div>
+            ))
           )}
         </div>
       </div>
@@ -81,9 +97,13 @@ function SearchDemo() {
       </span>
 
       <p className="demo__note">
-        <code>query</code> — input value, instantly updates (urgent).
-        <code>deferredQuery</code> — same value पण थोडा "lag" ने update होतो.
-        <code>isStale = query !== deferredQuery</code> — list अजून जुनी query वर render आहे हे दाखवतो.
+        <code>query</code> represents the current input value and updates
+        immediately with every keystroke. <code>deferredQuery</code> contains
+        the same value, but updates with a slight delay, allowing React to
+        prioritize more urgent UI updates. The expression{" "}
+        <code>isStale = query !== deferredQuery</code> indicates that the list
+        is still rendering results for the previous query while React prepares
+        the updated results in the background.
       </p>
     </div>
   );
@@ -93,7 +113,12 @@ function SearchDemo() {
 // Pattern 2 — Stale content fade (visual feedback)
 // ═══════════════════════════════════════════════════════════════════════════════
 
-interface Product { id: number; name: string; category: string; price: number; }
+interface Product {
+  id: number;
+  name: string;
+  category: string;
+  price: number;
+}
 
 const PRODUCTS: Product[] = Array.from({ length: 4000 }, (_, i) => ({
   id: i,
@@ -103,7 +128,9 @@ const PRODUCTS: Product[] = Array.from({ length: 4000 }, (_, i) => ({
 }));
 
 function filterProducts(query: string): Product[] {
-  const result = PRODUCTS.filter((p) => p.name.toLowerCase().includes(query.toLowerCase()));
+  const result = PRODUCTS.filter((p) =>
+    p.name.toLowerCase().includes(query.toLowerCase()),
+  );
   let dummy = 0;
   for (let i = 0; i < result.length * 150; i++) dummy += i;
   return result.slice(0, 25);
@@ -116,7 +143,8 @@ function ProductGrid({ query }: { query: string }) {
     <div className="item-list">
       {results.map((p) => (
         <div key={p.id} className="item-row">
-          {p.name} <span style={{ color: "#9ca3af" }}>({p.category})</span> — ₹{p.price}
+          {p.name} <span style={{ color: "#9ca3af" }}>({p.category})</span> — ₹
+          {p.price}
         </div>
       ))}
     </div>
@@ -125,18 +153,22 @@ function ProductGrid({ query }: { query: string }) {
 
 function StaleIndicatorDemo() {
   const [query, setQuery] = useState("");
-  const deferredQuery     = useDeferredValue(query);
-  const isStale           = query !== deferredQuery;
+  const deferredQuery = useDeferredValue(query);
+  const isStale = query !== deferredQuery;
 
   return (
     <div className="demo__section">
       <p className="demo__label">Pattern 2</p>
-      <p className="demo__title">Stale content fade — visual feedback during transition</p>
+      <p className="demo__title">
+        Stale content fade — visual feedback during transition
+      </p>
 
       <input
         className="field-input"
         value={query}
-        onChange={(e: ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
+        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          setQuery(e.target.value)
+        }
         placeholder="Search 4000 products..."
       />
 
@@ -149,16 +181,27 @@ function StaleIndicatorDemo() {
       </div>
 
       <div className="compare">
-        <div className="compare__cell compare__cell--header">Without useDeferredValue</div>
-        <div className="compare__cell compare__cell--header">With useDeferredValue</div>
-        <div className="compare__cell compare__cell--bad">Typing lags — every keystroke blocked by heavy render</div>
-        <div className="compare__cell compare__cell--good">Typing stays smooth — list fades and catches up</div>
+        <div className="compare__cell compare__cell--header">
+          Without useDeferredValue
+        </div>
+        <div className="compare__cell compare__cell--header">
+          With useDeferredValue
+        </div>
+        <div className="compare__cell compare__cell--bad">
+          Typing lags — every keystroke blocked by heavy render
+        </div>
+        <div className="compare__cell compare__cell--good">
+          Typing stays smooth — list fades and catches up
+        </div>
       </div>
-
       <p className="demo__note">
-        <code>ProductGrid</code> ला <code>deferredQuery</code> prop म्हणून जातो —
-        component ला माहीतच नाही की value deferred आहे. हे prop-based components साठी
-        उपयोगी आहे, जिथे तू स्वतः setState call करत नाहीस (third-party component, parent data इ.).
+        <code>ProductGrid</code> receives <code>deferredQuery</code> as a
+        regular prop, so the component has no knowledge that the value is
+        deferred. It simply renders using the value it receives. This makes{" "}
+        <code>useDeferredValue</code>
+        especially useful for prop-driven components, such as third-party
+        components or components that receive data from a parent, where you do
+        not directly control state updates with <code>setState</code>.
       </p>
     </div>
   );

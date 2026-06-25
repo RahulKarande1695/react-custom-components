@@ -2,9 +2,7 @@ import { useState } from "react";
 import "./Switch.css";
 
 const Switch = () => {
-
   const [isOn, setIsOn] = useState(false);
-  console.log(isOn)
   return (
     <div
       className={`switch ${

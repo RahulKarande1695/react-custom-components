@@ -40,7 +40,9 @@ function AccessibleField({ label, hint }: { label: string; hint: string }) {
 
   return (
     <div className="form-row">
-      <label className="form-row__label" htmlFor={id}>{label}</label>
+      <label className="form-row__label" htmlFor={id}>
+        {label}
+      </label>
       <input
         id={id}
         className="form-row__input"
@@ -48,7 +50,9 @@ function AccessibleField({ label, hint }: { label: string; hint: string }) {
         onChange={(e) => setValue(e.target.value)}
         aria-describedby={`${id}-hint`}
       />
-      <p id={`${id}-hint`} className="form-row__hint">{hint}</p>
+      <p id={`${id}-hint`} className="form-row__hint">
+        {hint}
+      </p>
       <span className="id-display">id: {id}</span>
     </div>
   );
@@ -58,15 +62,21 @@ function AccessibleFieldDemo() {
   return (
     <div className="demo__section">
       <p className="demo__label">Pattern 1</p>
-      <p className="demo__title">Accessible form field — label + input + hint linked</p>
+      <p className="demo__title">
+        Accessible form field — label + input + hint linked
+      </p>
 
-      <AccessibleField label="Full name"  hint="As per your ID proof." />
-      <AccessibleField label="Email"      hint="We'll send confirmation here." />
+      <AccessibleField label="Full name" hint="As per your ID proof." />
+      <AccessibleField label="Email" hint="We'll send confirmation here." />
 
       <p className="demo__note">
-        <code>useId()</code> — एकच unique id, त्यावरून <code>{`${"id"}-hint`}</code> सारखे
-        related ids derive करतो. <code>htmlFor</code> = input <code>id</code> — label click
-        केल्यावर input focus होतो, screen reader ला पण field कळतो.
+        <code>useId()</code> generates a single unique ID, which can be used to
+        derive related IDs such as <code>{`${"id"}-hint`}</code> or{" "}
+        <code>{`${"id"}-error`}</code>. By matching the label's{" "}
+        <code>htmlFor</code> attribute with the input's <code>id</code>,
+        clicking the label automatically focuses the corresponding input. This
+        association also improves accessibility, allowing screen readers to
+        correctly identify and describe the form field.
       </p>
     </div>
   );
@@ -99,7 +109,9 @@ function MultipleInstancesDemo() {
   return (
     <div className="demo__section">
       <p className="demo__label">Pattern 2</p>
-      <p className="demo__title">Multiple instances — same component, unique ids</p>
+      <p className="demo__title">
+        Multiple instances — same component, unique ids
+      </p>
 
       <div className="instance-box">
         <p className="instance-box__title">Notification Settings</p>
@@ -111,7 +123,9 @@ function MultipleInstancesDemo() {
       </div>
 
       <div className="compare">
-        <div className="compare__cell compare__cell--header">Hardcoded id="toggle"</div>
+        <div className="compare__cell compare__cell--header">
+          Hardcoded id="toggle"
+        </div>
         <div className="compare__cell compare__cell--header">useId()</div>
         <div className="compare__cell compare__cell--bad">
           All 3 instances get same id → label clicks wrong input
@@ -122,15 +136,23 @@ function MultipleInstancesDemo() {
       </div>
 
       <p className="demo__note">
-        <code>ToggleField</code> 3 वेळा वापरला — प्रत्येकाला वेगळा <code>useId()</code> मिळाला.
-        Hardcoded <code>id="toggle"</code> वापरलं असतं तर सगळे एकाच id share करत असते —
-        invalid HTML आणि label click चुकीच्या input ला जातो.
+        <code>ToggleField</code> is rendered three times, and each instance
+        receives its own unique ID from <code>useId()</code>. If you had
+        hardcoded <code>id="toggle"</code>, all three inputs would share the
+        same ID, resulting in invalid HTML and causing label clicks to target
+        the wrong input.
       </p>
 
       <p className="demo__warning">
-        ⚠️ <strong>List keys साठी useId वापरू नकोस</strong> — keys साठी data चा stable
-        id (<code>item.id</code>) वापर. useId फक्त same component render दरम्यान स्थिर असतो,
-        list reorder झाली तर key म्हणून चुकीचा वापर bugs देतो.
+        ⚠️{" "}
+        <strong>
+          Do not use <code>useId()</code> for list keys.
+        </strong>{" "}
+        List keys should always come from stable data, such as{" "}
+        <code>item.id</code>. <code>useId()</code> only guarantees a stable ID
+        for the lifetime of a component instance. If a list is reordered, using{" "}
+        <code>useId()</code> as a key can lead to incorrect component matching
+        and subtle bugs.
       </p>
     </div>
   );

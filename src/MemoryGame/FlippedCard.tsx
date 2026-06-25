@@ -1,14 +1,19 @@
-import { useState } from "react";
 import "./flippedCard.css";
 
 const FlippedCard = () => {
-    const [flipped, setFlipped] = useState(false)
-    return(
-        <div className="card" data-toggle={flipped} onClick={()=>setFlipped(!flipped)}>
-            <div className="front"></div>
-            <div className="back">1</div>
+  return (
+    <div className="card-wrapper">
+      <div className="card">
+        <div className="front">
+          <h2>Front</h2>
         </div>
-    )
-}
+
+        <div className="back">
+          <h2>Back</h2>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default FlippedCard;

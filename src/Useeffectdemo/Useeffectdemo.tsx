@@ -31,9 +31,9 @@ interface User {
 
 function ApiFetchDemo() {
   const [userId, setUserId] = useState(1);
-  const [user, setUser]     = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError]   = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     // AbortController — cancel in-flight request if userId changes before response
@@ -43,10 +43,13 @@ function ApiFetchDemo() {
       setLoading(true);
       setError(null);
       try {
-        const res  = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}`, {
-          signal: controller.signal,
-        });
-        const data = await res.json() as User;
+        const res = await fetch(
+          `https://jsonplaceholder.typicode.com/users/${userId}`,
+          {
+            signal: controller.signal,
+          },
+        );
+        const data = (await res.json()) as User;
         setUser(data);
       } catch (err) {
         // AbortError is expected — don't show as error
@@ -86,14 +89,20 @@ function ApiFetchDemo() {
       <div className={`user-card${loading ? " user-card--loading" : ""}`}>
         <div className="user-card__avatar">👤</div>
         <div>
-          <p className="user-card__name">{loading ? "Loading..." : user?.name}</p>
+          <p className="user-card__name">
+            {loading ? "Loading..." : user?.name}
+          </p>
           <p className="user-card__email">{loading ? "---" : user?.email}</p>
         </div>
       </div>
 
       <p className="demo__note">
-        <code>AbortController</code> — cleanup मध्ये <code>controller.abort()</code> call करतो.
-        User id बदलला तर पहिला request cancel होतो — stale data येत नाही.
+        <code>AbortController</code> is used to cancel an in-progress request
+        during the cleanup phase by calling <code>controller.abort()</code>. If
+        the <code>userId</code> changes before the previous request completes,
+        the earlier request is aborted, preventing stale or outdated data from
+        updating the UI. This helps avoid race conditions and ensures that only
+        the latest request updates the component.
       </p>
     </div>
   );
@@ -104,7 +113,7 @@ function ApiFetchDemo() {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function EventListenerDemo() {
-  const [pos, setPos]       = useState({ x: 0, y: 0 });
+  const [pos, setPos] = useState({ x: 0, y: 0 });
   const [inside, setInside] = useState(false);
   const boxRef = useRef<HTMLDivElement>(null);
 
@@ -119,8 +128,12 @@ function EventListenerDemo() {
         y: Math.round(e.clientY - rect.top),
       });
     }
-    function handleEnter() { setInside(true); }
-    function handleLeave() { setInside(false); }
+    function handleEnter() {
+      setInside(true);
+    }
+    function handleLeave() {
+      setInside(false);
+    }
 
     box.addEventListener("mousemove", handleMouseMove);
     box.addEventListener("mouseenter", handleEnter);
@@ -137,7 +150,9 @@ function EventListenerDemo() {
   return (
     <div className="demo__section">
       <p className="demo__label">Pattern 2</p>
-      <p className="demo__title">Event listener — add on mount, cleanup on unmount</p>
+      <p className="demo__title">
+        Event listener — add on mount, cleanup on unmount
+      </p>
 
       <div
         ref={boxRef}
@@ -147,8 +162,12 @@ function EventListenerDemo() {
       </div>
 
       <p className="demo__note">
-        Cleanup मध्ये <code>removeEventListener</code> — नाही केलं तर component unmount झाल्यावर
-        पण listener active राहतो → memory leak.
+        The cleanup function removes the event listener using{" "}
+        <code>removeEventListener</code>. Without this cleanup, the listener
+        remains attached even after the component unmounts, leading to memory
+        leaks and unexpected behavior, such as callbacks continuing to run or
+        multiple event listeners being registered when the component mounts
+        again.
       </p>
     </div>
   );
@@ -176,7 +195,9 @@ function TimerDemo() {
   return (
     <div className="demo__section">
       <p className="demo__label">Pattern 3</p>
-      <p className="demo__title">setInterval — cleanup prevents multiple intervals</p>
+      <p className="demo__title">
+        setInterval — cleanup prevents multiple intervals
+      </p>
 
       <p className="timer-display">
         {String(Math.floor(seconds / 60)).padStart(2, "0")}:
@@ -192,15 +213,22 @@ function TimerDemo() {
         </button>
         <button
           className="timer-btn timer-btn--ghost"
-          onClick={() => { setRunning(false); setSeconds(0); }}
+          onClick={() => {
+            setRunning(false);
+            setSeconds(0);
+          }}
         >
           Reset
         </button>
       </div>
 
       <p className="demo__note">
-        Cleanup मध्ये <code>clearInterval</code> — running false झाल्यावर interval clear होतो.
-        नाही केलं तर Start/Pause प्रत्येक वेळी नवीन interval बनतो → timer multiple speed वर चालतो.
+        The cleanup function calls <code>clearInterval</code> to stop the active
+        interval whenever <code>running</code> becomes <code>false</code> or the
+        effect re-runs. Without this cleanup, every click on{" "}
+        <strong>Start</strong> or <strong>Pause</strong> could create a new
+        interval, causing multiple intervals to run simultaneously and making
+        the timer increment much faster than expected.
       </p>
     </div>
   );
@@ -230,13 +258,17 @@ function LocalStorageDemo() {
   return (
     <div className="demo__section">
       <p className="demo__label">Pattern 4</p>
-      <p className="demo__title">localStorage sync — side effect on state change</p>
+      <p className="demo__title">
+        localStorage sync — side effect on state change
+      </p>
 
       <div className="sync-row">
         <input
           className="sync-input"
           value={text}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => setText(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setText(e.target.value)
+          }
           placeholder="Type something — auto saved..."
           aria-label="Auto-save input"
         />
@@ -244,9 +276,13 @@ function LocalStorageDemo() {
       </div>
 
       <p className="demo__note">
-        <code>useEffect([text])</code> — text बदलल्यावर localStorage update होतो.
-        Page refresh केल्यावर lazy init मुळे saved value परत येतो.
-        Cleanup मध्ये <code>clearTimeout</code> — rapid typing वर badge flicker होत नाही.
+        <code>useEffect([text])</code> runs whenever <code>text</code> changes
+        and synchronizes the latest value with <code>localStorage</code>. On
+        page refresh, the state is restored from <code>localStorage</code> using
+        lazy initialization, so the previously saved value is loaded
+        automatically. The cleanup function calls <code>clearTimeout</code>,
+        ensuring that pending timers are canceled during rapid typing, which
+        prevents the "Saved" badge from flickering.
       </p>
     </div>
   );

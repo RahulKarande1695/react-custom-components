@@ -1,0 +1,124 @@
+.demo {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 32px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.demo__section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.demo__label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #9ca3af;
+  margin: 0;
+}
+
+.demo__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.demo__note {
+  font-size: 12px;
+  color: #6b7280;
+  line-height: 1.5;
+  background: #f9fafb;
+  border-left: 3px solid #e5e7eb;
+  padding: 8px 10px;
+  border-radius: 0 6px 6px 0;
+  margin: 0;
+}
+
+.demo__note code {
+  font-size: 11px;
+  background: #f3f4f6;
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-family: monospace;
+}
+
+.size-display {
+  display: flex;
+  gap: 16px;
+}
+
+.size-box {
+  flex: 1;
+  text-align: center;
+  padding: 14px;
+  background: #f9fafb;
+  border-radius: 8px;
+}
+
+.size-box__value { font-size: 24px; font-weight: 700; color: #6366f1; }
+.size-box__label { font-size: 11px; color: #9ca3af; margin-top: 2px; }
+
+/* breakpoint badge */
+.breakpoint-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 99px;
+  font-size: 14px;
+  font-weight: 700;
+  align-self: flex-start;
+}
+
+.breakpoint-badge--mobile  { background: #fef2f2; color: #b91c1c; }
+.breakpoint-badge--tablet  { background: #fef3c7; color: #92400e; }
+.breakpoint-badge--desktop { background: #f0fdf4; color: #15803d; }
+
+/* responsive grid demo */
+.responsive-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.grid-item {
+  padding: 12px;
+  background: #ede9fe;
+  color: #5b21b6;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* layout switch */
+.layout-demo {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  background: #f9fafb;
+  border-radius: 8px;
+}
+
+.layout-demo--column { flex-direction: column; }
+
+.layout-box {
+  flex: 1;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 12px;
+  text-align: center;
+  color: #6b7280;
+}
