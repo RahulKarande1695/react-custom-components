@@ -1,114 +1,224 @@
-# React UI Components
+# 🚀 React Custom Components Library
 
-A collection of 25+ production-quality UI components built from scratch using **React 18**, **TypeScript**, and **MUI** — covering compound components, render props, custom hooks, accessibility, and performance patterns.
+A collection of **50+ reusable React components**, **React 19 hooks examples**, UI widgets, utilities, games, and interview-focused implementations built using **React**, **TypeScript**, **Vite**, **CSS**, and **Material UI**.
 
-> Built as a hands-on learning playground for mastering React internals and interview-ready component design.
+## 🌐 Live Demo
 
----
-
-## 🚀 Live Demo
-
-🔗 [**View Live →**](https://react-ui-components.vercel.app) *(deploy link — update after Vercel deploy)*
+👉 https://rahulkarande1695.github.io/react-custom-components/
 
 ---
 
-## 🧩 Components
+## ✨ Features
 
-| Component | Key Concepts |
-|---|---|
-| **TabList** | Compound components, ARIA roles, keyboard navigation, orientation variants |
-| **Accordion** | Compound components, Context, single/multi open modes |
-| **Pagination** | Compound components, render props, page size control |
-| **Modal** | Portal rendering, focus trap, backdrop click, keyboard dismiss |
-| **Popover** | Compound components, positioning, click-outside detection |
-| **Toast** | Context-driven notifications, auto-dismiss, queue management |
-| **Carousel** | Touch/swipe support, auto-play, dot navigation |
-| **DynamicForm** | Schema-driven form rendering, validation |
-| **DarkLightMode** | Theme switching, CSS variables, system preference detection |
-| **TodoApp** | CRUD, local state management, filter views |
-| **MemoryGame** | Game state, card flip logic, match detection |
-| **TicTacToe** | Game logic, win detection, turn management |
-| **StarRating** | Controlled/uncontrolled input, hover state |
-| **OTP Input** | Multi-input coordination, auto-focus, paste handling |
-| **FileExplorer** | Recursive tree rendering, expand/collapse |
-| **Switch** | Controlled toggle, accessible ARIA |
-| **VirtualScroll** | Windowing, performance optimization for large lists |
-| **InfiniteScroll** | Intersection Observer API, paginated data fetching |
-| **Stopwatch** | `useRef` vs `useState`, interval management |
-| **DigitalClock** | Real-time updates, `setInterval` cleanup |
-| **DragAndDrop** | HTML5 Drag API, reorder logic |
-| **TableRowDrag** | Drag-to-reorder table rows |
-| **TrafficLights** | Sequential state machine, auto-cycle |
-| **OverlappingCircle** | CSS geometry, SVG/clip-path |
-| **GridColor** | 2D array state, cell interaction |
+- ✅ 50+ Reusable Components
+- ✅ React 19 Hooks Examples
+- ✅ Compound Components
+- ✅ Performance Optimizations
+- ✅ TypeScript
+- ✅ Responsive UI
+- ✅ Clean Folder Structure
+- ✅ Interview Ready Implementations
 
 ---
 
-## 🛠 Tech Stack
+# 🛠 Tech Stack
 
-- **React 18** — Concurrent features, hooks
-- **TypeScript** — Strict mode, `verbatimModuleSyntax`
-- **Vite** — Fast dev server and optimized builds
-- **MUI (`@mui/material`)** — Component library base
-- **Emotion** — CSS-in-JS styling
+- React 19
+- TypeScript
+- Vite
+- CSS3
+- Material UI
+- React Hooks
 
 ---
 
-## 📦 Run Locally
+# 📂 Components
+
+## React Hooks
+
+- useState
+- useReducer
+- useEffect
+- useLayoutEffect
+- useInsertionEffect
+- useRef
+- useContext
+- useMemo
+- useCallback
+- useTransition
+- useDeferredValue
+- useId
+- useSyncExternalStore
+- useDebugValue
+- useOptimistic
+- useActionState
+- useFormStatus
+
+---
+
+## Compound Components
+
+- Accordion
+- Pagination
+- Popover
+- Tabs
+
+---
+
+## Overlay Components
+
+- Modal
+- Toast
+- Autocomplete
+- Multi Select
+- Calendar
+- Time Picker
+
+---
+
+## Forms
+
+- Dynamic Form
+- OTP Input
+- Switch
+- Star Rating
+
+---
+
+## UI Components
+
+- Carousel
+- Stepper
+- Progress Bar
+- Breadcrumb
+- Skeleton Loader
+- Typing Effect
+- Digital Clock
+- Stopwatch
+- Grid Color
+- Traffic Lights
+- Overlapping Circles
+
+---
+
+## Performance
+
+- Infinite Scroll
+- Virtual Scroll
+
+---
+
+## Drag & Drop
+
+- Drag and Drop
+- Table Row Drag
+
+---
+
+## Applications
+
+- Todo App
+- File Explorer
+
+---
+
+## Games
+
+- Memory Game
+- Tic Tac Toe
+- Snake Game
+
+---
+
+# 🚀 Installation
 
 ```bash
-git clone https://github.com/RahulKarande1695/react-ui-components.git
-cd react-ui-components
+git clone https://github.com/RahulKarande1695/react-custom-components.git
+```
+
+```bash
+cd react-custom-components
+```
+
+```bash
 npm install
+```
+
+```bash
 npm run dev
 ```
 
 ---
 
-## 📁 Project Structure
+# 📦 Build
 
-```
-src/
-├── Accordion/
-├── Carousel/
-├── DarkLightMode/
-├── DragAndDrop/
-├── DynamicForm/
-├── FileExplore/
-├── GridColor/
-├── InfiniteScroll/
-├── MemoryGame/
-├── Modal/
-├── OTP/
-├── OverLappingCircle/
-├── Pagination/
-├── Popover/
-├── StarRating/
-├── Stopwatch/
-├── Switch/
-├── TabList/
-├── TicTacToe/
-├── Toast/
-├── Todo/
-├── TrafficLights/
-├── VirtualScroll/
-└── Clock/
+```bash
+npm run build
 ```
 
 ---
 
-## 💡 Patterns Used
+# 🚀 Deploy
 
-- **Compound Components** — TabList, Accordion, Pagination, Popover, Modal
-- **Render Props** — Pagination.Pages
-- **Context API** — Toast, DarkLightMode, Accordion
-- **Custom Hooks** — Stopwatch, InfiniteScroll, DarkLightMode
-- **Recursive Rendering** — FileExplorer
-- **Performance** — VirtualScroll (windowing), InfiniteScroll (Intersection Observer)
+```bash
+npm run deploy
+```
 
 ---
 
-## 👤 Author
+# 📸 Screenshots
+
+## Home
+
+![Home](docs/home.png)
+
+---
+
+## React Hooks
+
+![Hooks](docs/hooks.png)
+
+---
+
+## UI Components
+
+![UI](docs/ui-components.png)
+
+---
+
+## Forms
+
+![Forms](docs/forms.png)
+
+---
+
+## Games
+
+![Games](docs/games.png)
+
+---
+
+## Performance
+
+![Performance](docs/performance.png)
+---
+
+# 👨‍💻 Author
 
 **Rahul Karande**
-[GitHub](https://github.com/RahulKarande1695)
+
+Frontend Developer
+
+GitHub
+
+https://github.com/RahulKarande1695
+
+LinkedIn
+
+(Add your LinkedIn profile)
+
+---
+
+## ⭐ Support
+
+If you found this project useful, don't forget to ⭐ star the repository.
