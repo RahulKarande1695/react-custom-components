@@ -168,8 +168,39 @@ npm run deploy
 
 # 📸 Screenshots
 
-_Add screenshots here._
+## Home
 
+![Home](docs/home.png)
+
+---
+
+## React Hooks
+
+![Hooks](docs/hooks.png)
+
+---
+
+## UI Components
+
+![UI](docs/ui-components.png)
+
+---
+
+## Forms
+
+![Forms](docs/forms.png)
+
+---
+
+## Games
+
+![Games](docs/games.png)
+
+---
+
+## Performance
+
+![Performance](docs/performance.png)
 ---
 
 # 👨‍💻 Author
