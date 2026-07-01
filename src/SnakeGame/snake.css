@@ -1,0 +1,30 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+.board{
+width:400px;
+height:400px;
+margin:40px auto;
+border:3px solid black;
+position:relative;
+background:#eee;
+}
+
+.snake{
+width:20px;
+height:20px;
+background:green;
+position:absolute;
+border-radius:4px;
+}
+
+.food{
+width:20px;
+height:20px;
+background:red;
+position:absolute;
+border-radius:50%;
+}

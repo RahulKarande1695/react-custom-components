@@ -4,10 +4,23 @@
   box-sizing: border-box;
 }
 
+.container {
+  max-width: 700px;
+  margin: 40px auto;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 120px);
+  gap: 20px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
 .card-wrapper {
-  width: 300px;
-  height: 200px;
-  margin: 80px auto;
+  width: 120px;
+  height: 150px;
   perspective: 1000px;
 }
 
@@ -15,12 +28,11 @@
   width: 100%;
   height: 100%;
   position: relative;
-
   transform-style: preserve-3d;
-  transition: transform 0.6s ease;
+  transition: transform .5s;
 }
 
-.card:hover {
+.card.flipped {
   transform: rotateY(180deg);
 }
 
@@ -28,26 +40,20 @@
 .back {
   position: absolute;
   inset: 0;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
-  font-size: 32px;
-  font-weight: bold;
-  color: white;
-
   border-radius: 12px;
-
+  font-size: 45px;
   backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
 }
 
 .front {
-  background: #ff6b6b;
+  background: royalblue;
+  color: white;
 }
 
 .back {
-  background: #4dabf7;
+  background: orange;
   transform: rotateY(180deg);
 }

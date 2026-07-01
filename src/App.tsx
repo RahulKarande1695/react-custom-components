@@ -57,6 +57,7 @@ import UseDebounceDemo from "./Usedebouncedemo/Usedebouncedemo";
 import UseThrottleDemo from "./UseThrottleDemo/UseThrottleDemo";
 import UseWindowSizeDemo from "./UseWindowSizeDemo/UseWindowSizeDemo";
 import MultiSelectDemo from "./MultiSelect/MultiSelectDemo";
+import SnakeGame from "./SnakeGame/SnakeGame";
 
 type ComponentEntry = {
   label: string;
@@ -326,6 +327,11 @@ const componentList: ComponentEntry[] = [
     label: "TicTacToe",
     category: "Games",
     component: <TicTacToe />,
+  },
+  {
+    label: "SnakeGame",
+    category: "Games",
+    component: <SnakeGame />,
   },
   {
     label: "TodoApp",
