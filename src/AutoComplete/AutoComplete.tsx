@@ -81,7 +81,6 @@ export function Autocomplete({
   const [suggestions, setSuggestions]   = useState<Suggestion[]>([]);
   const [open, setOpen]                 = useState(false);
   const [activeIdx, setActiveIdx]       = useState(-1);
-  const [loading, setLoading]           = useState(false);
 
   const inputRef    = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -94,7 +93,6 @@ export function Autocomplete({
         .filter((h) => h.toLowerCase().startsWith(q.toLowerCase()) && h !== q)
         .map((h, i): Suggestion => ({ id: `history-${i}`, text: h, type: "history" }));
 
-      setLoading(true);
       try {
         const api = await fetchSuggestions(q);
         const apiSuggestions: Suggestion[] = api
@@ -115,7 +113,7 @@ export function Autocomplete({
           setOpen(all.length > 0);
         }
       } finally {
-        setLoading(false);
+        console.log("Autom compelete finally")
       }
     },
     [fetchSuggestions, historyKey, maxHistory]

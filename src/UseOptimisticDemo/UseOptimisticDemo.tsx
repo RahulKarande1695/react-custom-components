@@ -116,7 +116,7 @@ const INITIAL_COMMENTS: Comment[] = [
 ];
 
 // Simulates posting a comment to server — 25% chance of failure
-async function fakePostComment(text: string): Promise<void> {
+async function fakePostComment(): Promise<void> {
   await new Promise((r) => setTimeout(r, 1200));
   if (Math.random() < 0.25) throw new Error("Failed to post");
 }
@@ -145,7 +145,7 @@ function CommentDemo() {
     addOptimisticComment({ id: tempId, text, status: "pending" });
 
     try {
-      await fakePostComment(text);
+      await fakePostComment();
       // Success — add to real state, optimistic syncs automatically
       setComments((prev) => [...prev, { id: tempId, text, status: "sent" }]);
     } catch {
@@ -157,7 +157,7 @@ function CommentDemo() {
   function retryComment(comment: Comment) {
     setComments((prev) => prev.filter((c) => c.id !== comment.id));
     addOptimisticComment({ ...comment, status: "pending" });
-    fakePostComment(comment.text)
+    fakePostComment()
       .then(() =>
         setComments((prev) => [...prev, { ...comment, status: "sent" }]),
       )

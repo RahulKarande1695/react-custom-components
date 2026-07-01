@@ -47,11 +47,6 @@ function FilterSortDemo() {
 
   // WITHOUT memo — runs every render (including unrelated state changes)
   const startWithout = performance.now();
-  const filteredWithout = ALL_PRODUCTS.filter((p) =>
-    p.name.toLowerCase().includes(search.toLowerCase()),
-  )
-    .sort((a, b) => (a[sort] < b[sort] ? -1 : 1))
-    .slice(0, 20);
   withoutMemoRef.current =
     Math.round(performance.now() - startWithout * 100) / 100;
 
@@ -249,8 +244,6 @@ function ReferentialEqualityDemo() {
   const [fetchCount, setFetchCount] = useState(0);
 
   // WITHOUT memo — new object every render → useEffect runs on EVERY render
-  const configWithout = { userId, endpoint: "/api/user" };
-
   // WITH memo — same reference unless userId changes → useEffect runs only when needed
   const configWith = useMemo(
     () => ({ userId, endpoint: "/api/user" }),

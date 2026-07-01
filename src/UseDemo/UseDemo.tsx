@@ -26,7 +26,7 @@
  * Pattern 2 — use(Context) conditional : read context only when needed
  */
 
-import { use, useState, Suspense, createContext, useId } from "react";
+import { use, useState, Suspense, createContext } from "react";
 import "./UseDemo.css";
 
 // ═══════════════════════════════════════════════════════════════════════════════

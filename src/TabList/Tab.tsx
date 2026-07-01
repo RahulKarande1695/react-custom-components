@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import type { KeyboardEvent } from "react";
 import { styled } from "@mui/material/styles";
-import { PersonOutlined, Code } from "@mui/icons-material";
+import { PersonOutlined } from "@mui/icons-material";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import CodeIcon from "@mui/icons-material/Code";
 import TuneIcon from "@mui/icons-material/Tune";
@@ -9,7 +9,7 @@ import TuneIcon from "@mui/icons-material/Tune";
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 export interface Tab {
-  id: string;
+  id: string
   label: string;
   icon?: React.ReactNode;
   disabled?: boolean;

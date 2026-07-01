@@ -28,7 +28,6 @@ import Carousel from "./Carousel/Carousel";
 import Autocomplete from "./AutoComplete/AutoComplete";
 import TypingEffect from "./TypingEffect/TypingEffect";
 import { Breadcrumb } from "./Breadcrumb/Breadcrumb";
-import MultiSelect from "./MultiSelect/MultiSelect";
 import ProgressBar from "./ProgressBar/ProgressBar ";
 import SkeletonCard from "./SkeletonCard/SkeletonCard";
 import CustomCalendar from "./CustomCalendar/CustomCalendar";
